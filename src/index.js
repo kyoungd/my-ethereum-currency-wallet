@@ -8,7 +8,8 @@ import logger from 'redux-logger';
 import App from './App'
 import reducers from './reducers';
 import Transfer from './components/transfer';
-import Allowance from './components/allowance';
+import SpendAllowance from './components/spendAllowance';
+
 import reduxThunk from 'redux-thunk';
 
 const createStoreWithMiddleware = applyMiddleware(logger, reduxThunk)(createStore);
@@ -18,7 +19,8 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App} >
         <Route path="transfer" component={Transfer} ></Route>
-        <Route path="allowance" component={Allowance} ></Route>
+        <Route path="allowance" component={Transfer} ></Route>
+        <Route path="spendAllowance" component={SpendAllowance} ></Route>
       </Route>
     </Router>
   </Provider>

@@ -4,7 +4,7 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { renderField } from '../utils/tool';
 
-class Transfer extends Component {
+class SpendAllowance extends Component {
 
   constructor(props) {
     super(props);
@@ -20,25 +20,9 @@ class Transfer extends Component {
     }
   }
 
-  handleFormSubmit({addressTo, amount}) {
-    // Need to do something to execute the Transfer Fund operation.
-    switch (this.props.location.query.id) {
-      case 'transferTo' :
-        this.props.transferFund({addressTo, amount});
-        break;
-      case 'giveAllowance' :
-        this.props.giveAllowance({addressTo, amount});
-        break;
-      default:
-        this.props.errorMessage = 'Unknown Transfer Id';
-        this.renderAlert();
-        break;
-    }
-  }
-  componentWillMount() {
-    // var addrFrom = document.getElementById('fsAddressFrom');
-    // console.log('componentWillAmount(addrFrom): ', addrFrom);
-    // addrFrom.classList.add('hide');
+  handleFormSubmit({addressFrom, addressTo, amount}) {
+    // Need to do something to execute the SpendAllowance Fund operation.
+    this.props.spendAllowance({addressFrom, addressTo, amount});
   }
   render() {
     const { handleSubmit } = this.props;
@@ -49,6 +33,10 @@ class Transfer extends Component {
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
               <br/>
               <fieldset className='form-group'>
+                <label>Address From: </label>;
+                <Field name='addressFrom' component={renderField} type='text' className='form-control' />
+              </fieldset>
+              <fieldset className='form-group'>
                 <label>Address To: </label>;
                 <Field name='addressTo' component={renderField} type='text' className='form-control' />
               </fieldset>
@@ -57,7 +45,7 @@ class Transfer extends Component {
                 <Field name='amount' component={renderField} type='text' className='form-control' />
               </fieldset>
               { this.renderAlert() }
-              <button action="submit" className="btn btn-primary">{ this.props.location.query.text }</button>
+              <button action="submit" className="btn btn-primary">Spend Allowance</button>
               <label id="errorMsg"></label>
             </form>
           </div>
@@ -69,6 +57,11 @@ class Transfer extends Component {
 
 const validate = values => {
   const errors = {}
+  if (!values.addressFrom) {
+    errors.addressFrom = 'Required'
+  } else if (values.addressFrom.length < 15) {
+    errors.addressFrom = 'Must be 15 characters or less'
+  }
   if (!values.addressTo) {
     errors.addressTo = 'Required'
   } else if (values.addressTo.length < 15) {
@@ -96,10 +89,10 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.errorMessage };
 }
 
-Transfer = connect(mapStateToProps, actions)(Transfer);
+SpendAllowance = connect(mapStateToProps, actions)(SpendAllowance);
 
 export default reduxForm ({
-  form: 'transfer',
+  form: 'spendAllowance',
   validate,
   warn
-})(Transfer);
+})(SpendAllowance);
