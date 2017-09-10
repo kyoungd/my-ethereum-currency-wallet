@@ -1,4 +1,4 @@
-import { transfer_fund, give_allowance, spend_allowance } from '../utils/metacoin';
+import { transfer_fund, give_allowance, spend_allowance, buy_token, sell_token, mint_token } from '../utils/metacoin';
 import { AUTH_ERROR } from './types';
 
 export function transferFund({addressTo, amount}) {
@@ -36,6 +36,33 @@ export function spendAllowance({addressTo, amount}) {
     console.log('amount: ', amount);
     spend_allowance({addressTo, amount});
     dispatch(authError('/src/actions/index.js/spend_allowance() test error'));
+  }
+}
+
+export function buyTokens({amount}){
+  return function(dispatch) {
+    console.log('/src/actions/index.js/buyTokens()')
+    console.log('amount: ', amount);
+    buy_token({amount});
+    dispatch(authError('/src/actions/index.js/buy_token() test error'));
+  }
+}
+
+export function sellTokens({amount}){
+  return function(dispatch) {
+    console.log('/src/actions/index.js/sellTokens()')
+    console.log('amount: ', amount);
+    sell_token({amount});
+    dispatch(authError('/src/actions/index.js/sell_token() test error'));
+  }
+}
+
+export function mintTokens({amount}){
+  return function(dispatch) {
+    console.log('/src/actions/index.js/mintTokens()')
+    console.log('amount: ', amount);
+    mint_token({amount});
+    dispatch(authError('/src/actions/index.js/mint_token() test error'));
   }
 }
 

@@ -32,6 +32,7 @@ class SpendAllowance extends Component {
           <div className="pure-u-1-1">
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
               <br/>
+              <h1>Spend Allowance</h1>
               <fieldset className='form-group'>
                 <label>Address From: </label>;
                 <Field name='addressFrom' component={renderField} type='text' className='form-control' />

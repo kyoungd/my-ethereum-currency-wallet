@@ -9,6 +9,7 @@ import App from './App'
 import reducers from './reducers';
 import Transfer from './components/transfer';
 import SpendAllowance from './components/spendAllowance';
+import BuySellMint from './components/buySellMint';
 
 import reduxThunk from 'redux-thunk';
 
@@ -21,6 +22,9 @@ ReactDOM.render(
         <Route path="transfer" component={Transfer} ></Route>
         <Route path="allowance" component={Transfer} ></Route>
         <Route path="spendAllowance" component={SpendAllowance} ></Route>
+        <Route path="buy" component={BuySellMint} ></Route>
+        <Route path="sell" component={BuySellMint} ></Route>
+        <Route path="mint" component={BuySellMint} ></Route>
       </Route>
     </Router>
   </Provider>

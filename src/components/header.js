@@ -9,10 +9,10 @@ class Header extends Component {
           <li className="nav nav-item"><a href="transfer?id=transferTo&amp;text=Transfer%20Fund">Transfer</a></li>
           <li className="nav nav-item"><a href="transfer?id=giveAllowance&amp;text=Give%20Allowance">Allowance</a></li>
           <li className="nav nav-item"><a href="spendAllowance">Spend Allowance</a></li>
-          <li className="nav nav-item">Buy</li>
-          <li className="nav nav-item">Sell</li>
+          <li className="nav nav-item"><a href="buy?id=buyToken&amp;text=Buy%20Tokens">Buy</a></li>
+          <li className="nav nav-item"><a href="sell?id=sellToken&amp;text=Sell%20Tokens">Sell</a></li>
           <li className="nav nav-item">Buy/Sell Price</li>
-          <li className="nav nav-item">Mint Coin</li>
+          <li className="nav nav-item"><a href="mint?id=mintToken&amp;text=Mint%20Tokens">Mint Token</a></li>
           <li className="nav nav-item">Freeze/Unfreeze</li>
         </ul>
       </nav>
