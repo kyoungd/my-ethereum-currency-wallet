@@ -1,5 +1,5 @@
-import { transfer_fund, give_allowance, spend_allowance, buy_token, sell_token, mint_token } from '../utils/metacoin';
-import { AUTH_ERROR } from './types';
+import { transfer_fund, give_allowance, spend_allowance, buy_token, sell_token, mint_token, buy_sell_price } from '../utils/metacoin';
+import { AUTH_ERROR, GET_WEB3 } from './types';
 
 export function transferFund({addressTo, amount}) {
   return function(dispatch) {
@@ -63,6 +63,26 @@ export function mintTokens({amount}){
     console.log('amount: ', amount);
     mint_token({amount});
     dispatch(authError('/src/actions/index.js/mint_token() test error'));
+  }
+}
+
+export function buySellPrice({buyPrice, sellPrice}) {
+  return function(dispatch) {
+    console.log('/src/actions/index.js/buySellPrice()')
+    console.log('buy sell price : ', buyPrice, '  ', sellPrice);
+    buy_sell_price({buyPrice, sellPrice});
+    dispatch(authError('/src/actions/index.js/buy_sell_price() test error'));
+  }
+}
+
+export function getMyWeb3({web3, addressMe, addressContract}) {
+  return function(dispatch) {
+    dispatch({
+      type: GET_WEB3,
+      web3,
+      addressMe,
+      addressContract
+    });
   }
 }
 

@@ -2,26 +2,12 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
-import { renderField } from '../utils/tool';
+import { renderAlert, renderField } from '../utils/tool';
 
-class SpendAllowance extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return (
-        <div className="alert alert-danger">
-          <strong>Oops!</strong> {this.props.errorMessage}
-        </div>
-      )
-    }
-  }
+class spendAllowance extends Component {
 
   handleFormSubmit({addressFrom, addressTo, amount}) {
-    // Need to do something to execute the SpendAllowance Fund operation.
+    // Need to do something to execute the spendAllowance Fund operation.
     this.props.spendAllowance({addressFrom, addressTo, amount});
   }
   render() {
@@ -45,7 +31,7 @@ class SpendAllowance extends Component {
                 <label>Amount: </label>;
                 <Field name='amount' component={renderField} type='text' className='form-control' />
               </fieldset>
-              { this.renderAlert() }
+              { renderAlert(this.props.account.errorMessage) }
               <button action="submit" className="btn btn-primary">Spend Allowance</button>
               <label id="errorMsg"></label>
             </form>
@@ -87,10 +73,10 @@ const warn = values => {
 }
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.errorMessage };
+  return { account: state.auth };
 }
 
-SpendAllowance = connect(mapStateToProps, actions)(SpendAllowance);
+var SpendAllowance = connect(mapStateToProps, actions)(spendAllowance);
 
 export default reduxForm ({
   form: 'spendAllowance',

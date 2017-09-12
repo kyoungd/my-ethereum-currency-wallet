@@ -24,7 +24,7 @@ export const renderField = ({
     </div>
   </div>
 
-export function executeFunctionByName(functionName, context , args) {
+export function executeFunctionByName(functionName, context) {
   var args = [].slice.call(arguments).splice(2);
   var namespaces = functionName.split(".");
   var func = namespaces.pop();

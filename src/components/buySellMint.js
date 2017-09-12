@@ -2,20 +2,11 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
-import { renderField } from '../utils/tool';
+import { renderAlert, renderField } from '../utils/tool';
 
-class BuySellMint extends Component {
-  renderAlert() {
-    if (this.props.errorMessage) {
-      return (
-        <div className="alert alert-danger">
-          <strong>Oops!</strong> {this.props.errorMessage}
-        </div>
-      )
-    }
-  }
+class buySellMint extends Component {
   handleFormSubmit({amount}) {
-    // Need to do something to execute the BuySellMint Fund operation.
+    // Need to do something to execute the buySellMint Fund operation.
     console.log('>>>>>>>>>>>>> handleFormSubmit(): ', this.props);
     switch(this.props.location.query.id) {
       case 'buyToken':
@@ -44,7 +35,7 @@ class BuySellMint extends Component {
                 <label>Amount: </label>;
                 <Field name='amount' component={renderField} type='text' className='form-control' />
               </fieldset>
-              { this.renderAlert() }
+              { this.renderAlert(this.props.account.errorMessage) }
               <button action="submit" className="btn btn-primary">{this.props.location.query.text}</button>
               <label id="errorMsg"></label>
             </form>
@@ -77,10 +68,10 @@ const warn = values => {
 }
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.errorMessage };
+  return { account : state.auth };
 }
 
-BuySellMint = connect(mapStateToProps, actions)(BuySellMint);
+var BuySellMint = connect(mapStateToProps, actions)(buySellMint);
 
 export default reduxForm ({
   form: 'buySellMintForm',

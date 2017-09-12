@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 import getWeb3 from './utils/getWeb3'
+import { Link } from 'react-router';
+import * as actions from './actions';
+import { connect } from 'react-redux';
 
 import './css/oswald.css'
 import './css/open-sans.css'
@@ -14,6 +17,8 @@ class App extends Component {
 
     this.state = {
       storageValue: 0,
+      addressMe: '',
+      addressContract: '',
       web3: null
     }
   }
@@ -56,14 +61,17 @@ class App extends Component {
       simpleStorage.deployed().then((instance) => {
         simpleStorageInstance = instance
 
-        // Stores a given value, 5 by default.
-        return simpleStorageInstance.set(5, {from: accounts[0]})
-      }).then((result) => {
-        // Get the value from the contract to prove it worked.
+        this.setState({ addressMe: accounts[0], addressContract:simpleStorageInstance.address });
+      //   // Stores a given value, 5 by default.
+      //   return simpleStorageInstance.set(5, {from: accounts[0]})
+      // }).then((result) => {
+      //   // Get the value from the contract to prove it worked.
         return simpleStorageInstance.get.call(accounts[0])
       }).then((result) => {
         // Update state with the result.
-        return this.setState({ storageValue: result.c[0] })
+        this.setState({ storageValue: result.c[0] });
+        const { web3, addressMe, addressContract } = this.state;
+        this.props.getMyWeb3({web3, addressMe, addressContract});
       })
     })
   }
@@ -73,22 +81,10 @@ class App extends Component {
       <div className="App">
         <Header />
         { this.props.children }
-        
-        <main className="container">
-          <div className="pure-g">
-            <div className="pure-u-1-1">
-              <h1>Good to Go!</h1>
-              <p>Your Truffle Box is installed and ready.</p>
-              <h2>Smart Contract Example</h2>
-              <p>If your contracts compiled and migrated successfully, below will show a stored value of 5 (by default).</p>
-              <p>Try changing the value stored on <strong>line 59</strong> of App.js.</p>
-              <p>The stored value is: {this.state.storageValue}</p>
-            </div>
-          </div>
-        </main>
       </div>
     );
   }
 }
 
-export default App
+App = connect(null, actions)(App);
+export default App;

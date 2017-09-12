@@ -11,7 +11,8 @@ class Header extends Component {
           <li className="nav nav-item"><a href="spendAllowance">Spend Allowance</a></li>
           <li className="nav nav-item"><a href="buy?id=buyToken&amp;text=Buy%20Tokens">Buy</a></li>
           <li className="nav nav-item"><a href="sell?id=sellToken&amp;text=Sell%20Tokens">Sell</a></li>
-          <li className="nav nav-item">Buy/Sell Price</li>
+          <li className="nav nav-item"><a href="account?id=account&amp;text=Account Information">Account</a></li>
+          <li className="nav nav-item"><a href="buySell?id=buySell&amp;text=Buy-Sell Price">Buy/Sell Price</a></li>
           <li className="nav nav-item"><a href="mint?id=mintToken&amp;text=Mint%20Tokens">Mint Token</a></li>
           <li className="nav nav-item">Freeze/Unfreeze</li>
         </ul>

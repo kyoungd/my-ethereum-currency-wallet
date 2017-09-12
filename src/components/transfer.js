@@ -4,24 +4,20 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { renderField } from '../utils/tool';
 
-class Transfer extends Component {
+class transfer extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
-  renderAlert() {
-    if (this.props.errorMessage) {
+  renderAlert(errorMessage) {
+    if (errorMessage) {
       return (
         <div className="alert alert-danger">
-          <strong>Oops!</strong> {this.props.errorMessage}
+          <strong>Oops!</strong> {errorMessage}
         </div>
       )
     }
   }
 
   handleFormSubmit({addressTo, amount}) {
-    // Need to do something to execute the Transfer Fund operation.
+    // Need to do something to execute the transfer Fund operation.
     switch (this.props.location.query.id) {
       case 'transferTo' :
         this.props.transferFund({addressTo, amount});
@@ -30,8 +26,7 @@ class Transfer extends Component {
         this.props.giveAllowance({addressTo, amount});
         break;
       default:
-        this.props.errorMessage = 'Unknown Transfer Id';
-        this.renderAlert();
+        this.props.authError("components.transfer.handleSubmit.  Unknown id type. ", this.props.location.query.id);
         break;
     }
   }
@@ -57,7 +52,7 @@ class Transfer extends Component {
                 <label>Amount: </label>;
                 <Field name='amount' component={renderField} type='text' className='form-control' />
               </fieldset>
-              { this.renderAlert() }
+              { this.renderAlert(this.props.account.errorMessage) }
               <button action="submit" className="btn btn-primary">{ this.props.location.query.text }</button>
               <label id="errorMsg"></label>
             </form>
@@ -94,10 +89,12 @@ const warn = values => {
 }
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.errorMessage };
+  console.log('>>>>>>>>>>>>>> mapStateToProps')
+  console.log(state);
+  return { account: state.auth };
 }
 
-Transfer = connect(mapStateToProps, actions)(Transfer);
+var Transfer = connect(mapStateToProps, actions)(transfer);
 
 export default reduxForm ({
   form: 'transfer',

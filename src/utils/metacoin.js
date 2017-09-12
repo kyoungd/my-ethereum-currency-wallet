@@ -22,3 +22,7 @@ export function sell_token({amount}) {
 export function mint_token({amount}) {
   console.log('mint_token: ', amount);
 }
+
+export function buy_sell_price({buyPrice, sellPrice}) {
+  console.log('buy_sell_price: ', buyPrice, ', ', sellPrice);
+}
