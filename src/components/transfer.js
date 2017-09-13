@@ -6,16 +6,6 @@ import { renderField } from '../utils/tool';
 
 class transfer extends Component {
 
-  renderAlert(errorMessage) {
-    if (errorMessage) {
-      return (
-        <div className="alert alert-danger">
-          <strong>Oops!</strong> {errorMessage}
-        </div>
-      )
-    }
-  }
-
   handleFormSubmit({addressTo, amount}) {
     // Need to do something to execute the transfer Fund operation.
     switch (this.props.location.query.id) {

@@ -33,3 +33,13 @@ export function executeFunctionByName(functionName, context) {
   }
   return context[func].apply(context, args);
 }
+
+export function renderAlert(errorMessage) {
+    if (errorMessage) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Oops!</strong> {errorMessage}
+        </div>
+      )
+    }
+  }

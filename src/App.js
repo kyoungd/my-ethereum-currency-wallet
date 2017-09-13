@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
+import MetaCoinContract from '../build/contracts/MetaCoin.json'
 import getWeb3 from './utils/getWeb3'
 import { Link } from 'react-router';
 import * as actions from './actions';
@@ -50,29 +50,31 @@ class App extends Component {
      */
 
     const contract = require('truffle-contract')
-    const simpleStorage = contract(SimpleStorageContract)
-    simpleStorage.setProvider(this.state.web3.currentProvider)
+    const metaCoin = contract(MetaCoinContract)
+    metaCoin.setProvider(this.state.web3.currentProvider)
 
-    // Declaring this for later so we can chain functions on SimpleStorage.
-    var simpleStorageInstance
+    // Declaring this for later so we can chain functions on MetaCoin.
+    var metaCoinInstance
 
     // Get accounts.
     this.state.web3.eth.getAccounts((error, accounts) => {
-      simpleStorage.deployed().then((instance) => {
-        simpleStorageInstance = instance
+      metaCoin.deployed().then((instance) => {
+        metaCoinInstance = instance
 
-        this.setState({ addressMe: accounts[0], addressContract:simpleStorageInstance.address });
+        this.setState({ addressMe: accounts[0], addressContract:metaCoinInstance.address });
       //   // Stores a given value, 5 by default.
-      //   return simpleStorageInstance.set(5, {from: accounts[0]})
+      //   return metaCoinInstance.set(5, {from: accounts[0]})
       // }).then((result) => {
       //   // Get the value from the contract to prove it worked.
-        return simpleStorageInstance.get.call(accounts[0])
-      }).then((result) => {
-        // Update state with the result.
-        this.setState({ storageValue: result.c[0] });
+      //   return metaCoinInstance.get.call(accounts[0])
+      // }).then((result) => {
+      //   // Update state with the result.
+      //   this.setState({ storageValue: result.c[0] });
         const { web3, addressMe, addressContract } = this.state;
         this.props.getMyWeb3({web3, addressMe, addressContract});
-      })
+      }).catch((e) => {
+        console.log("Error detecting network; see log. ", e);
+      });
     })
   }
 
